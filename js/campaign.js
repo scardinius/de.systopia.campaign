@@ -207,6 +207,46 @@
         }
      };
 
+     /* Copy to clipboard (custom fields and selected KPIs in custom orders) */
+     $scope.copyToClipboardString = '';
+     $scope.copyToClipboardString = currentCampaign.title + ';';
+     $scope.copyToClipboardString = $scope.copyToClipboardString + (currentCampaign.start_date.substr(0, 10)) + ';';
+     var custom_fields = [
+       'custom_18', // typ
+       'custom_16', // kanał
+       'custom_19', // selekcja
+       'custom_21', // proporcja
+       'custom_22'  // test
+     ];
+     crmApi('Campaign', 'get', {id: currentCampaign.id, 'sequential': 1, 'return' : custom_fields.join(',')}).then(function (apiResult) {
+       angular.forEach(custom_fields, function (cf_key) {
+         var cf_value = apiResult.values[0][cf_key];
+         $scope.copyToClipboardString = $scope.copyToClipboardString + (cf_value ? cf_value : '') + ';';
+       });
+       var kpi_fields = [
+         'number_of_people',
+         'plan_response',
+         'plan_donors',
+         'plan_roi',
+         'amount_all',
+         'donors',
+         'response',
+         'total_revenue',
+         'total_cost',
+         'profit',
+         'cpo',
+         'amount_average',
+         'roi'
+       ];
+       angular.forEach(kpi_fields, function(value) {
+         var vv = String($scope.kpi[value].value).replace('.', ',');
+         $scope.copyToClipboardString = $scope.copyToClipboardString + (vv ? vv : '') + ';';
+       });
+     });
+     $scope.copyToClipboard = function () {
+       window.prompt(ts('Copy to clipboard'), $scope.copyToClipboardString);
+     }
+
   }]);
 
   campaign.controller('CampaignExpenseCtrl', ['$scope', '$routeParams','dialogService', 'crmApi',

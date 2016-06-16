@@ -104,6 +104,10 @@
           <td>{{value | formatKPI}}</td>
         </tr>
       </table>
+       <div>
+           <a class="button" ng-click="copyToClipboard()">{{ts('Copy to clipboard', {domain: 'de.systopia.campaign'})}}</a>
+       </div>
+       <div style="clear:both"></div>
    </div>
 
    <div crm-ui-accordion="{title: ts('Campaign Expenses (only this campaign)', {domain: 'de.systopia.campaign'})}" >
