@@ -211,38 +211,61 @@
      $scope.copyToClipboardString = '';
      $scope.copyToClipboardString = currentCampaign.title + ';';
      $scope.copyToClipboardString = $scope.copyToClipboardString + (currentCampaign.start_date.substr(0, 10)) + ';';
+     var dicts = [];
+     dicts[100] = [];
+     dicts[101] = [];
+     dicts[102] = [];
      var custom_fields = [
-       'custom_18', // typ
-       'custom_16', // kanał
-       'custom_19', // selekcja
+       'custom_18', // typ, radio, option_group_id = 101
+       'custom_16', // kanał, radio, option_group_id = 100
+       'custom_19', // selekcja, radio, option_group_id = 102
        'custom_21', // proporcja
        'custom_22'  // test
      ];
-     crmApi('Campaign', 'get', {id: currentCampaign.id, 'sequential': 1, 'return' : custom_fields.join(',')}).then(function (apiResult) {
-       angular.forEach(custom_fields, function (cf_key) {
-         var cf_value = apiResult.values[0][cf_key];
-         $scope.copyToClipboardString = $scope.copyToClipboardString + (cf_value ? cf_value : '') + ';';
+     var fields_custom = {
+       'custom_18' : 101, // typ, radio, option_group_id = 101
+       'custom_16' : 100, // kanał, radio, option_group_id = 100
+       'custom_19' : 102 // selekcja, radio, option_group_id = 102
+     };
+
+     crmApi('OptionValue', 'get', {
+       'sequential': 1,
+       'option_group_id': {'IN': [100, 101, 102]},
+       'return': 'option_group_id,value,label'
+     }).then(function (apiResult) {
+       angular.forEach(apiResult.values, function (val) {
+         dicts[val.option_group_id][val.value] = val.label;
        });
-       var kpi_fields = [
-         'number_of_people',
-         'plan_response',
-         'plan_donors',
-         'plan_roi',
-         'amount_all',
-         'donors',
-         'response',
-         'total_revenue',
-         'total_cost',
-         'profit',
-         'cpo',
-         'amount_average',
-         'roi'
-       ];
-       angular.forEach(kpi_fields, function(value) {
-         var vv = String($scope.kpi[value].value).replace('.', ',');
-         $scope.copyToClipboardString = $scope.copyToClipboardString + (vv ? vv : '') + ';';
+       crmApi('Campaign', 'get', {id: currentCampaign.id, 'sequential': 1, 'return' : custom_fields.join(',')}).then(function (apiResult) {
+         angular.forEach(custom_fields, function (cf_key) {
+           var cf_value = apiResult.values[0][cf_key];
+           if (fields_custom[cf_key]) {
+             cf_value = dicts[fields_custom[cf_key]][cf_value];
+           }
+           $scope.copyToClipboardString = $scope.copyToClipboardString + (cf_value ? cf_value : '') + ';';
+         });
+         var kpi_fields = [
+           'number_of_people',
+           'plan_response',
+           'plan_donors',
+           'plan_roi',
+           'amount_all',
+           'donors',
+           'response',
+           'total_revenue',
+           'total_cost',
+           'profit',
+           'cpo',
+           'amount_average',
+           'roi'
+         ];
+         angular.forEach(kpi_fields, function(value) {
+           var vv = String($scope.kpi[value].value).replace('.', ',');
+           $scope.copyToClipboardString = $scope.copyToClipboardString + (vv ? vv : '') + ';';
+         });
        });
      });
+
      $scope.copyToClipboard = function () {
        window.prompt(ts('Copy to clipboard'), $scope.copyToClipboardString);
      }
