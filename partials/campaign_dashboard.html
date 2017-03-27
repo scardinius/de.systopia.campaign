@@ -106,6 +106,27 @@
       </table>
    </div>
 
+   <div crm-ui-accordion="{title: ts('Activities', {domain: 'de.systopia.campaign'})}" >
+      <table>
+          <tr>
+              <th>{{ts('Type', {domain: 'de.systopia.campaign'})}}</th>
+              <th ng-repeat="astatus in activityStatuses">{{astatus}}</th>
+              <th>{{ts('Total', {domain: 'de.systopia.campaign'})}}</th>
+          </tr>
+          <tr class="acrep" ng-repeat="atype in activityTypes">
+              <td>{{atype}}</td>
+              <td ng-repeat="astatus in activityStatuses">{{activities[atype][astatus]}}</td>
+              <td>{{activityTypesTotal[atype]}}</td>
+          </tr>
+          <tr>
+              <td>{{ts('Total', {domain: 'de.systopia.campaign'})}}</td>
+              <td ng-repeat="astatus in activityStatuses">{{activityStatusesTotal[astatus]}}</td>
+              <td>{{activityTotal}}</td>
+          </tr>
+         <tr ng-show="activityTypes.length < 1"><td colspan="15"><span class="centered">{{ts('No activity types found', {domain: 'de.systopia.campaign'})}}</span></td></tr>
+      </table>
+   </div>
+
    <div crm-ui-accordion="{title: ts('Campaign Expenses (only this campaign)', {domain: 'de.systopia.campaign'})}" >
       <a ng-click="addExpense()" class="button addExpense">{{ts('Add Expense', {domain: 'de.systopia.campaign'})}}</a>
       <table class="expsumtable">

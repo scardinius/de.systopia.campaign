@@ -156,3 +156,12 @@ linegraph .axis line {
     stroke-width: 1;
     shape-rendering: crispEdges;
 }
+
+
+tr.acrep:nth-child(even) {
+    background: #e7e7e7;
+}
+
+tr.acrep:nth-child(odd) {
+    background: #FFF;
+}

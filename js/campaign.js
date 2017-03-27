@@ -113,10 +113,12 @@
      $scope.parents = parents.parents.reverse();
      $scope.expenseSum = expenseSum.values;
      $scope.expenses = [];
+     $scope.activities = [];
      $scope.activityTypes = [];
      $scope.activityTypesTotal = [];
      $scope.activityStatuses = [];
      $scope.activityStatusesTotal = [];
+     $scope.activityTotal = 0;
 
      crmApi('OptionValue', 'get', {"option_group_id": "campaign_status", "return": "value,label"}).then(function (apiResult) {
        $scope.campaign_status = apiResult.values;
@@ -128,6 +130,10 @@
      });
 
      angular.forEach(activityReport.values, function(item) {
+       if (!(item.name in $scope.activities)) {
+         $scope.activities[item.name] = [];
+       }
+       $scope.activities[item.name][item.grouping] = parseFloat(item.counter);
        if ($scope.activityTypes.indexOf(item.name) == -1) {
          $scope.activityTypes.push(item.name);
        }
@@ -136,8 +142,10 @@
        }
        if (!(item.name in $scope.activityTypesTotal)) {
          $scope.activityTypesTotal[item.name] = parseFloat(item.counter);
+         $scope.activityTotal = $scope.activityTotal + parseFloat(item.counter);
        } else {
          $scope.activityTypesTotal[item.name] = $scope.activityTypesTotal[item.name] + parseFloat(item.counter);
+         $scope.activityTotal = $scope.activityTotal + parseFloat(item.counter);
        }
        if (!(item.grouping in $scope.activityStatusesTotal)) {
          $scope.activityStatusesTotal[item.grouping] = parseFloat(item.counter);
