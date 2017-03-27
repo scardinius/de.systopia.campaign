@@ -40,6 +40,9 @@
           kpi: function($route, crmApi) {
              return crmApi('CampaignKpi', 'get', {id: $route.current.params.id});
           },
+          activityReport: function($route, crmApi) {
+             return crmApi('CampaignStat', 'activity_report', {id: $route.current.params.id});
+          },
           expenseSum: function($route, crmApi) {
              return crmApi('CampaignExpense', 'getsum', {campaign_id: $route.current.params.id});
           },
@@ -93,12 +96,13 @@
   'children',
   'parents',
   'kpi',
+  'activityReport',
   'expenseSum',
   'expenses',
   'dialogService',
   'crmApi',
   '$interval',
-   function($scope, $routeParams, $sce, currentCampaign, children, parents, kpi, expenseSum, expenses, dialogService, crmApi, $interval) {
+   function($scope, $routeParams, $sce, currentCampaign, children, parents, kpi, activityReport, expenseSum, expenses, dialogService, crmApi, $interval) {
      $scope.ts = CRM.ts('de.systopia.campaign');
      $scope.currentCampaign = currentCampaign;
      $scope.currentCampaign.goal_general_htmlSafe = $sce.trustAsHtml($scope.currentCampaign.goal_general);
@@ -109,6 +113,10 @@
      $scope.parents = parents.parents.reverse();
      $scope.expenseSum = expenseSum.values;
      $scope.expenses = [];
+     $scope.activityTypes = [];
+     $scope.activityTypesTotal = [];
+     $scope.activityStatuses = [];
+     $scope.activityStatusesTotal = [];
 
      crmApi('OptionValue', 'get', {"option_group_id": "campaign_status", "return": "value,label"}).then(function (apiResult) {
        $scope.campaign_status = apiResult.values;
@@ -118,6 +126,26 @@
           $scope.currentCampaign.status_id_text = item.label;
        });
      });
+
+     angular.forEach(activityReport.values, function(item) {
+       if ($scope.activityTypes.indexOf(item.name) == -1) {
+         $scope.activityTypes.push(item.name);
+       }
+       if ($scope.activityStatuses.indexOf(item.grouping) == -1) {
+         $scope.activityStatuses.push(item.grouping);
+       }
+       if (!(item.name in $scope.activityTypesTotal)) {
+         $scope.activityTypesTotal[item.name] = parseFloat(item.counter);
+       } else {
+         $scope.activityTypesTotal[item.name] = $scope.activityTypesTotal[item.name] + parseFloat(item.counter);
+       }
+       if (!(item.grouping in $scope.activityStatusesTotal)) {
+         $scope.activityStatusesTotal[item.grouping] = parseFloat(item.counter);
+       } else {
+         $scope.activityStatusesTotal[item.grouping] = $scope.activityStatusesTotal[item.grouping] + parseFloat(item.counter);
+       }
+     });
+
      $scope.expense_sum = 0.00;
      angular.forEach(expenses.values, function(item) {
        $scope.expense_sum = $scope.expense_sum + parseFloat(item.amount);
