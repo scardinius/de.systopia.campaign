@@ -119,6 +119,7 @@
      $scope.activityStatuses = [];
      $scope.activityStatusesTotal = [];
      $scope.activityTotal = 0;
+     $scope.activitySequence = [];
 
      crmApi('OptionValue', 'get', {"option_group_id": "campaign_status", "return": "value,label"}).then(function (apiResult) {
        $scope.campaign_status = apiResult.values;
@@ -126,6 +127,12 @@
        angular.forEach($scope.campaign_status, function(item) {
           if(item.value == $scope.currentCampaign.status_id)
           $scope.currentCampaign.status_id_text = item.label;
+       });
+     });
+
+     crmApi('CampaignStat', 'activity_sequence', {"sequential": 1, "return": "grouping"}).then(function (apiResult) {
+       angular.forEach(apiResult.values, function(item) {
+         $scope.activitySequence.push(item.grouping);
        });
      });
 
