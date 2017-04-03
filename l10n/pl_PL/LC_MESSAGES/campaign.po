@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: \n"
 "Last-Translator: scardinius <scardinius@chords.pl>\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.5.4\n"
 "Language: pl_PL\n"
 
 #: CRM/Campaign/KPI.php
@@ -57,7 +57,9 @@ msgstr "Łączna liczba pierwszych wpłat (bez względu na status!)"
 
 #: CRM/Campaign/KPI.php
 msgid "Number of first contributions associated with this campaign"
-msgstr "Łączna liczba pierwszych wpłat (bez względu na status!) powiązanych z tą kampanią"
+msgstr ""
+"Łączna liczba pierwszych wpłat (bez względu na status!) powiązanych z tą "
+"kampanią"
 
 #: CRM/Campaign/KPI.php
 msgid "Average Cost per First Contribution"
@@ -72,7 +74,8 @@ msgid "Average Cost per Second or Later Contribution"
 msgstr "Średni koszt dla drugich i kolejnych wpłat"
 
 #: CRM/Campaign/KPI.php
-msgid "Average Cost per second or later contribution associated with this campaign"
+msgid ""
+"Average Cost per second or later contribution associated with this campaign"
 msgstr "Średni koszt dla drugich i kolejnych wpłat powiązanych z tą kampanią"
 
 #: CRM/Campaign/KPI.php
@@ -102,7 +105,8 @@ msgstr "de.systopia.campaign: \"cycle\" skasowany! id: %1"
 #: CRM/Campaign/Tree.php
 msgid "de.systopia.campaign: can't set self as parent! id: %1 -> %2"
 msgstr ""
-"de.systopia.campaign: Nie można ustawić kampanii jako rodzica samej siebie! id: %1 -> %2"
+"de.systopia.campaign: Nie można ustawić kampanii jako rodzica samej siebie! "
+"id: %1 -> %2"
 
 #: api/v3/CampaignExpense.php
 msgid "Contact associated with this expense"
@@ -133,8 +137,10 @@ msgid "Status of the expense (see option group contribution_status)"
 msgstr "Status wydatku (wg statusu kontrybucji)"
 
 #: api/v3/CampaignExpense.php
-msgid "Refers to option group civicrm_campaign_expense_types for categorisation"
-msgstr "Kategoria kosztu kampanii (wg grupy opcji Rodzaje wydatków kampanijnych)"
+msgid ""
+"Refers to option group civicrm_campaign_expense_types for categorisation"
+msgstr ""
+"Kategoria kosztu kampanii (wg grupy opcji Rodzaje wydatków kampanijnych)"
 
 #: api/v3/CampaignExpense.php
 msgid "A CampaignExpense with ID '%1' doesn't exist."
@@ -302,7 +308,8 @@ msgstr "nie ustawiony"
 
 #: partials/campaign_dashboard.html
 msgid "Are you sure you want to apply this status id to all subcampaigns?"
-msgstr "Czy jesteś pewiem, że chcesz ustawić ten status id do wszystkich podkampanii?"
+msgstr ""
+"Czy jesteś pewiem, że chcesz ustawić ten status id do wszystkich podkampanii?"
 
 #: partials/campaign_dashboard.html
 msgid "Apply to Subcampaigns"
@@ -322,7 +329,8 @@ msgstr "Nie"
 
 #: partials/campaign_dashboard.html
 msgid "Are you sure you want to apply this status to all subcampaigns?"
-msgstr "Czy jesteś pewiem, że chcesz ustawić ten status dla wszystkich podkampanii?"
+msgstr ""
+"Czy jesteś pewiem, że chcesz ustawić ten status dla wszystkich podkampanii?"
 
 #: partials/campaign_dashboard.html
 msgid "External Identifier"
@@ -335,7 +343,8 @@ msgstr "Data początkowa"
 #: partials/campaign_dashboard.html
 msgid "Are you sure you want to apply this start date to all subcampaigns?"
 msgstr ""
-"Czy jesteś pewiem, że chcesz ustawić tę datę początkową dla wszystkich podkampanii?"
+"Czy jesteś pewiem, że chcesz ustawić tę datę początkową dla wszystkich "
+"podkampanii?"
 
 #: partials/campaign_dashboard.html
 msgid "End date"
@@ -343,7 +352,9 @@ msgstr "Data końcowa"
 
 #: partials/campaign_dashboard.html
 msgid "Are you sure you want to apply this end date to all subcampaigns?"
-msgstr "Czy jesteś pewien, że chcesz ustawić tę datę końcową do wszystkich podkampanii?"
+msgstr ""
+"Czy jesteś pewien, że chcesz ustawić tę datę końcową do wszystkich "
+"podkampanii?"
 
 #: partials/campaign_dashboard.html
 msgid "Revenue Goal"
@@ -368,6 +379,22 @@ msgstr "Wykresy wskaźników KPI"
 #: partials/campaign_dashboard.html
 msgid "Key Performance Indicators (includes subcampaigns)"
 msgstr "Wskaźniki KPI (z uwzględnieniem podkampanii)"
+
+#: partials/campaign_dashboard.html
+msgid "Activities"
+msgstr "Interakcje"
+
+#: partials/campaign_dashboard.html
+msgid "Type of activity"
+msgstr "Rodzaj interakcji"
+
+#: partials/campaign_dashboard.html
+msgid "Total"
+msgstr "Total"
+
+#: partials/campaign_dashboard.html
+msgid "No activity types found"
+msgstr "Nie znaleziono żadnej aktywności"
 
 #: partials/campaign_dashboard.html
 msgid "Campaign Expenses (only this campaign)"
