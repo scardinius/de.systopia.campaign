@@ -130,12 +130,6 @@
        });
      });
 
-     crmApi('CampaignStat', 'activity_sequence', {"sequential": 1, "return": "grouping"}).then(function (apiResult) {
-       angular.forEach(apiResult.values, function(item) {
-         $scope.activitySequence.push(item.grouping);
-       });
-     });
-
      angular.forEach(activityReport.values, function(item) {
        if (!(item.name in $scope.activities)) {
          $scope.activities[item.name] = [];
@@ -159,6 +153,13 @@
        } else {
          $scope.activityStatusesTotal[item.grouping] = $scope.activityStatusesTotal[item.grouping] + parseFloat(item.counter);
        }
+     });
+     crmApi('CampaignStat', 'activity_sequence', {"sequential": 1, "return": "grouping"}).then(function (apiResult) {
+       angular.forEach(apiResult.values, function(item) {
+         if ($scope.activityStatuses.indexOf(item.grouping) >= 0) {
+           $scope.activitySequence.push(item.grouping);
+         }
+       });
      });
 
      $scope.expense_sum = 0.00;
