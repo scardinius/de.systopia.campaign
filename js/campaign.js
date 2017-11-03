@@ -268,17 +268,19 @@
        if (items.hasOwnProperty(item)) {
          var current_item = items[item];
          // skip array values (can't be displayed)
-         if(Array.isArray(current_item.value)) {
+         if (current_item && typeof current_item.value != 'undefined' && Array.isArray(current_item.value)) {
            continue;
          }
-         switch (current_item.kpi_type) {
-           case "money":
-           case "percentage":
-           case "date":
-           case "number":
-            filtered.push(current_item);
-            break;
-           default:
+         if (current_item) {
+           switch (current_item.kpi_type) {
+             case "money":
+             case "percentage":
+             case "date":
+             case "number":
+               filtered.push(current_item);
+               break;
+             default:
+           }
          }
        }
      }
@@ -320,7 +322,7 @@
     for (var item in items) {
       if (items.hasOwnProperty(item)) {
         var current_item = items[item];
-        if(!"vis_type" in current_item) {
+        if (!current_item || !"vis_type" in current_item) {
           continue;
         }
         switch (current_item.vis_type) {
@@ -343,7 +345,7 @@
     for (var item in items) {
       if (items.hasOwnProperty(item)) {
         var current_item = items[item];
-        if(!"vis_type" in current_item) {
+        if (!current_item || !"vis_type" in current_item) {
           continue;
         }
         switch (current_item.vis_type) {
